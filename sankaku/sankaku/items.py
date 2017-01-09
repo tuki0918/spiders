@@ -8,7 +8,9 @@
 import scrapy
 
 
-class SankakuItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class Image(scrapy.Item):
+    id = scrapy.Field()
+    image = scrapy.Field()
+    tags = scrapy.Field()
+    score = scrapy.Field()
+    vote = scrapy.Field()

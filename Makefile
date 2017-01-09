@@ -1,6 +1,6 @@
 WORK_DIR=/usr/src/app
 
-.PHONY: build boot bash run
+.PHONY: build boot bash run crawl
 build:
 	docker build -t py36 .
 boot:
@@ -17,3 +17,8 @@ run:
        -v $(PWD):$(WORK_DIR) \
        -w $(WORK_DIR) \
        py36 $(RUN_ARGS)
+crawl:
+	docker run --rm -it \
+       -v $(PWD):$(WORK_DIR) \
+       -w $(WORK_DIR)/src \
+       py36 scrapy crawl $(RUN_ARGS)

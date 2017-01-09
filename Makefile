@@ -20,5 +20,5 @@ run:
 crawl:
 	docker run --rm -it \
        -v $(PWD):$(WORK_DIR) \
-       -w $(WORK_DIR)/src \
+       -w $(WORK_DIR)/sankaku \
        py36 scrapy crawl $(RUN_ARGS)

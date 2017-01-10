@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+import logging
 import scrapy
 
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from sankaku.spiders.page import PageSpider
+from urllib.parse import urlparse, parse_qs
 
 
 class RankingSpider(scrapy.Spider):
@@ -16,21 +20,30 @@ class RankingSpider(scrapy.Spider):
         :return:
         """
 
-        url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A2017-01-01..2017-02-01%20order%3Aquality'
+        today = datetime.today()
+        last_month = today + relativedelta(months=-1)
+        period = '{:%Y-%m-%d}..{:%Y-%m-%d}'.format(last_month, today)
+
+        logging.info('Set Ranking Date: %s', period)
+
+        url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A{0}%20order%3Aquality'.format(period)
         yield scrapy.Request(url, callback=self.rank_page)
 
-    @staticmethod
-    def rank_page(response):
+    def rank_page(self, response):
         """
-        ランキングページを解析し、アイテムページURLを投げる
+        ランキングページを解析し、画像ページURLを投げる
         :param response:
         :return:
         """
 
-        url = 'https://chan.sankakucomplex.com/ja/post/show/5415670'
-        yield scrapy.Request(url, callback=PageSpider.item_page)
+        logging.info('Ranking Page: %s', response.url)
 
-        # next_page = response.css("div.page-link-option > a::attr('href')")
-        # if next_page:
-        #     url = response.urljoin(next_page[0].extract())
-        #     yield scrapy.Request(url, callback=self.parse)
+        # 画像ページ
+        for href in response.css('div.content a::attr(href)').re('/ja/post/show/\d+'):
+            yield scrapy.Request(response.urljoin(href), callback=PageSpider.item_page)
+
+        next_page = response.css('div.content > div::attr(next-page-url)').extract_first()
+        if next_page:
+            query = parse_qs(urlparse(next_page).query)
+            if int(query['page'][0], 10) < 4:
+                yield scrapy.Request(response.urljoin(next_page), callback=self.rank_page)

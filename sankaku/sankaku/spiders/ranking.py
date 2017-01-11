@@ -26,7 +26,7 @@ class RankingSpider(CrawlSpider):
         today = datetime.today()
         last_month = today + relativedelta(months=-1)
         period = '{:%Y-%m-%d}..{:%Y-%m-%d}'.format(last_month, today)
-        url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A{0}%20order%3Aquality'.format(period)
+        url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A{}%20order%3Aquality'.format(period)
 
         self.logger.info('Set Ranking Date: {}'.format(period))
         self.start_urls = [url]

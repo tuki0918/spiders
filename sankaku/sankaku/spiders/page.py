@@ -42,7 +42,7 @@ class PageSpider(scrapy.Spider):
         # 画像情報
         image = Image()
         image['id'] = post_id
-        image['image'] = response.urljoin(link)
+        image['image_urls'] = [response.urljoin(link)]
         image['tags'] = tags
         image['score'] = response.css('span#post-score-'+post_id+'::text').extract_first()
         image['vote'] = response.css('span#post-vote-count-'+post_id+'::text').extract_first()

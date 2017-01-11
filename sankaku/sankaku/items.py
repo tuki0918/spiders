@@ -10,7 +10,8 @@ import scrapy
 
 class Image(scrapy.Item):
     id = scrapy.Field()
-    image = scrapy.Field()
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
     tags = scrapy.Field()
     score = scrapy.Field()
     vote = scrapy.Field()

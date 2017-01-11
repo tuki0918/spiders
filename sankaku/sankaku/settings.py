@@ -65,6 +65,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+  'scrapy.pipelines.images.ImagesPipeline': 1,
   'sankaku.pipelines.ImageValidationPipeline': 300,
 }
 
@@ -91,3 +92,22 @@ ITEM_PIPELINES = {
 
 # 対象とする画像の最低評価値
 ITEM_MIN_SCORE = 4.0
+
+# 画像保存先
+IMAGES_STORE = '/usr/src/app/resources/images'
+
+# ファイルの有効期限
+FILES_EXPIRES = 120
+
+# 画像の有効期限
+IMAGES_EXPIRES = 30
+
+# 画像のサムネイルサイズ
+IMAGES_THUMBS = {
+    'small': (50, 50),
+    'medium': (200, 200),
+}
+
+# 画像のサムネイル対象サイズ（以上）
+IMAGES_MIN_HEIGHT = 110
+IMAGES_MIN_WIDTH = 110

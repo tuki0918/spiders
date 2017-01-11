@@ -4,43 +4,41 @@ import scrapy
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from sankaku.spiders.page import PageSpider
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 from urllib.parse import urlparse, parse_qs
 
 
-class RankingSpider(scrapy.Spider):
+class RankingSpider(CrawlSpider):
     name = "ranking"
     allowed_domains = ["chan.sankakucomplex.com"]
-    start_urls = ['http://chan.sankakucomplex.com/']
+    start_urls = []
 
-    def parse(self, response):
-        """
-        ページを解析し、ランキングページURLを投げる
-        :param response:
-        :return:
-        """
+    rules = (
+        # 画像ページ
+        Rule(LinkExtractor(allow=('/ja/post/show/\d+',)), callback=PageSpider.item_page),
+    )
 
-        # 集計期間：今日から１ヶ月前
+    def __init__(self, *a, **kw):
+        super(RankingSpider, self).__init__(*a, **kw)
+
+        # ランキング集計期間：１ヶ月前から今日
         today = datetime.today()
         last_month = today + relativedelta(months=-1)
         period = '{:%Y-%m-%d}..{:%Y-%m-%d}'.format(last_month, today)
+        url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A{0}%20order%3Aquality'.format(period)
 
         self.logger.info('Set Ranking Date: {}'.format(period))
+        self.start_urls = [url]
 
-        url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A{0}%20order%3Aquality'.format(period)
-        yield scrapy.Request(url, callback=self.rank_page)
-
-    def rank_page(self, response):
+    def parse_start_url(self, response):
         """
-        ランキングページを解析し、画像ページURLを投げる
+        次のページが存在する場合は次へ
         :param response:
         :return:
         """
 
         self.logger.info('Ranking Page: {}'.format(response.url))
-
-        # 画像ページ
-        for href in response.css('div.content a::attr(href)').re('/ja/post/show/\d+'):
-            yield scrapy.Request(response.urljoin(href), callback=PageSpider.item_page)
 
         next_page = response.css('div.content > div::attr(next-page-url)').extract_first()
         if next_page:

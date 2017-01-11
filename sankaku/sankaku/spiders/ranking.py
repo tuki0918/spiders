@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import logging
 import scrapy
 
 from datetime import datetime
@@ -20,11 +19,12 @@ class RankingSpider(scrapy.Spider):
         :return:
         """
 
+        # 集計期間：今日から１ヶ月前
         today = datetime.today()
         last_month = today + relativedelta(months=-1)
         period = '{:%Y-%m-%d}..{:%Y-%m-%d}'.format(last_month, today)
 
-        logging.info('Set Ranking Date: %s', period)
+        self.logger.info('Set Ranking Date: {}'.format(period))
 
         url = 'https://chan.sankakucomplex.com/ja/?tags=date%3A{0}%20order%3Aquality'.format(period)
         yield scrapy.Request(url, callback=self.rank_page)
@@ -36,7 +36,7 @@ class RankingSpider(scrapy.Spider):
         :return:
         """
 
-        logging.info('Ranking Page: %s', response.url)
+        self.logger.info('Ranking Page: {}'.format(response.url))
 
         # 画像ページ
         for href in response.css('div.content a::attr(href)').re('/ja/post/show/\d+'):

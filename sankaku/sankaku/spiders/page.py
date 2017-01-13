@@ -1,16 +1,25 @@
 # -*- coding: utf-8 -*-
-import scrapy
 
 from sankaku.items import Image
+from scrapy.spiders import CrawlSpider
 
 
-class PageSpider(scrapy.Spider):
+class PageSpider(CrawlSpider):
     name = "page"
     allowed_domains = ["chan.sankakucomplex.com"]
-    start_urls = ['http://chan.sankakucomplex.com/']
+    start_urls = []
 
-    def parse(self, response):
-        pass
+    def __init__(self, *a, **kw):
+        super(PageSpider, self).__init__(*a, **kw)
+
+        # オプションを取得
+        url = kw.get('URL')
+        if url:
+            self.logger.info('Set URL: {}'.format(url))
+            self.start_urls = [url]
+
+    def parse_start_url(self, response):
+        return self.item_page(response)
 
     @staticmethod
     def item_page(response):

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import cv2
+import os
 from sankaku.items import Image
 from scrapy.exceptions import DropItem
 
@@ -23,3 +25,37 @@ class ImageValidationPipeline(object):
                 return item
             else:
                 raise DropItem('Missing score: {}'.format(score))
+
+
+class ImageFacePointPipeline(object):
+
+    def process_item(self, item, spider):
+        if isinstance(item, Image):
+            settings = spider.settings
+            cascade_file = settings.get('CASCADE_ANIME_FACE_PATH')
+            image_base_path = settings.get('IMAGES_STORE')
+
+            item['faces'] = []
+
+            # ファイルを見つからない場合は処理を継続しない
+            if not os.path.isfile(cascade_file):
+                return item
+
+            cascade = cv2.CascadeClassifier(cascade_file)
+
+            # 特徴データを追加する
+            for image in item['images']:
+                image_path = image_base_path + '/' + image['path']
+
+                # 画像の読込
+                image = cv2.imread(image_path)
+
+                # グレースケール画像に変換
+                image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                image_gray = cv2.equalizeHist(image_gray)
+
+                # numpy.ndarray
+                faces = cascade.detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=5, minSize=(24, 24))
+                item['faces'] = faces.tolist()
+
+            return item

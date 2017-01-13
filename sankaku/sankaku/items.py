@@ -15,3 +15,4 @@ class Image(scrapy.Item):
     tags = scrapy.Field()
     score = scrapy.Field()
     vote = scrapy.Field()
+    faces = scrapy.Field()

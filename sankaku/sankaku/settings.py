@@ -65,8 +65,9 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-  'scrapy.pipelines.images.ImagesPipeline': 1,
-  'sankaku.pipelines.ImageValidationPipeline': 300,
+    'sankaku.pipelines.ImageValidationPipeline': 100,
+    'scrapy.pipelines.images.ImagesPipeline': 200,
+    'sankaku.pipelines.ImageFacePointPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -111,3 +112,6 @@ IMAGES_THUMBS = {
 # 画像のサムネイル対象サイズ（以上）
 IMAGES_MIN_HEIGHT = 110
 IMAGES_MIN_WIDTH = 110
+
+# アニメ顔認識用特徴データ
+CASCADE_ANIME_FACE_PATH = '/usr/src/app/resources/cascades/lbpcascade_animeface.xml'

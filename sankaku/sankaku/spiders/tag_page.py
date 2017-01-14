@@ -19,7 +19,7 @@ class TagPageSpider(CrawlSpider):
         super(TagPageSpider, self).__init__(*a, **kw)
 
         # オプションを取得
-        tag = kw.get('Tag')
+        tag = kw.get('TAG')
         if tag:
             url = 'https://chan.sankakucomplex.com/?tags={}%20order%3Apopular'.format(tag)
             self.logger.info('Set Tag: {}'.format(tag))

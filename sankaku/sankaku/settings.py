@@ -106,7 +106,6 @@ IMAGES_EXPIRES = 30
 
 # 画像のサムネイルサイズ
 IMAGES_THUMBS = {
-    'small': (50, 50),
     'medium': (200, 200),
 }
 

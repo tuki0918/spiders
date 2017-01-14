@@ -9,6 +9,7 @@ import scrapy
 
 
 class Image(scrapy.Item):
+    # 画像は１つの前提
     id = scrapy.Field()
     image_urls = scrapy.Field()
     images = scrapy.Field()

@@ -68,6 +68,7 @@ ITEM_PIPELINES = {
     'sankaku.pipelines.ImageValidationPipeline': 100,
     'scrapy.pipelines.images.ImagesPipeline': 200,
     'sankaku.pipelines.ImageFacePointPipeline': 300,
+    'sankaku.pipelines.ImageTrimmingFacePipeline': 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -115,3 +116,6 @@ IMAGES_MIN_WIDTH = 110
 
 # アニメ顔認識用特徴データ
 CASCADE_ANIME_FACE_PATH = '/usr/src/app/resources/cascades/lbpcascade_animeface.xml'
+
+# 顔画像保存ディレクトリ名
+IMAGES_STORE_ANIME_FACE_DIR = 'faces'

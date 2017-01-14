@@ -94,6 +94,11 @@ class ImageTrimmingFacePipeline(object):
                 p3 = math.ceil(x * 1)
                 p4 = math.ceil(x * 1 + w)
 
+                # デバッグ
+                # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                # cv2.rectangle(image, (p3, p1), (p4, p2), (0, 0, 255), 2)
+                # cv2.imwrite(image_path, image)
+
                 # トリミング
                 # cv2.imwrite(output_path, image[y:y + h, x:x + w])
                 cv2.imwrite(output_path, image[p1:p2, p3:p4])

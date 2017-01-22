@@ -92,6 +92,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+
+# 再帰探索を有効にする
+RECURSIVE_SEARCH = True
+
 # 対象とする画像の最低評価値
 ITEM_MIN_SCORE = 4.0
 

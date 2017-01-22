@@ -44,4 +44,4 @@ class RankingSpider(CrawlSpider):
         if next_page:
             query = parse_qs(urlparse(next_page).query)
             if int(query['page'][0], 10) < 4:
-                yield scrapy.Request(response.urljoin(next_page), callback='parse_start_url')
+                yield scrapy.Request(response.urljoin(next_page))

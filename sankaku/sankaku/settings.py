@@ -69,6 +69,7 @@ ITEM_PIPELINES = {
     'scrapy.pipelines.images.ImagesPipeline': 200,
     'sankaku.pipelines.ImageFacePointPipeline': 300,
     'sankaku.pipelines.ImageTrimmingFacePipeline': 400,
+    'scrapy_mongodb.MongoDBPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -122,3 +123,8 @@ CASCADE_ANIME_FACE_PATH = '/usr/src/app/resources/cascades/lbpcascade_animeface.
 
 # 顔画像保存ディレクトリ名
 IMAGES_STORE_ANIME_FACE_DIR = 'faces'
+
+# https://github.com/sebdah/scrapy-mongodb
+MONGODB_URI = 'mongodb://mongo:27017'
+MONGODB_DATABASE = 'scrapy'
+MONGODB_COLLECTION = 'images'

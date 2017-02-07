@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import math
 import os
+import pymongo
 from sankaku.items import Image
 from scrapy.exceptions import DropItem
 
@@ -104,3 +105,31 @@ class ImageTrimmingFacePipeline(object):
                 cv2.imwrite(output_path, image[p1:p2, p3:p4])
 
             return item
+
+
+class MongoPipeline(object):
+
+    collection_name = 'images'
+
+    def __init__(self, mongo_uri, mongo_db):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_uri=crawler.settings.get('MONGODB_URI'),
+            mongo_db=crawler.settings.get('MONGODB_DATABASE', 'items')
+        )
+
+    def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.mongo_db]
+
+    def close_spider(self, spider):
+        self.client.close()
+
+    def process_item(self, item, spider):
+        if isinstance(item, Image):
+            self.db[self.collection_name].insert(dict(item))
+        return item

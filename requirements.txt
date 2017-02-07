@@ -1,4 +1,4 @@
 scrapy
-scrapy-mongodb
 pillow
+pymongo
 python-dateutil

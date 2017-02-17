@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-from sankaku.spiders.page import PageSpider
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
-from urllib.parse import urlparse, parse_qs
+from .page import PageSpider
 
 
 class TagPageSpider(CrawlSpider):

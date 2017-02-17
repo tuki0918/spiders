@@ -5,8 +5,8 @@ import numpy as np
 import math
 import os
 import pymongo
-from sankaku.items import Image
 from scrapy.exceptions import DropItem
+from .items import Image
 
 
 class ImageValidationPipeline(object):
@@ -89,20 +89,22 @@ class ImageTrimmingFacePipeline(object):
                 # 画像の読込
                 image = cv2.imread(image_path)
 
-                # 抽出範囲を大きく取る
-                p1 = math.ceil(y * 0.5)
-                p2 = math.ceil(y * 0.75 + h)
-                p3 = math.ceil(x * 1)
-                p4 = math.ceil(x * 1 + w)
+                # 頭（上部）を大きく取る
+                size = h if (h > w) else w
+                size_plus = math.floor(size * 0.2)
+                size_h = y + size + size_plus
+                size_x = x + size + size_plus
+                # 横軸の調整
+                x_ = x - math.floor(size_plus / 2)
 
                 # デバッグ
                 # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                # cv2.rectangle(image, (p3, p1), (p4, p2), (0, 0, 255), 2)
+                # cv2.rectangle(image, (x_, y), (size_x, size_h), (0, 0, 255), 2)
                 # cv2.imwrite(image_path, image)
 
                 # トリミング
                 # cv2.imwrite(output_path, image[y:y + h, x:x + w])
-                cv2.imwrite(output_path, image[p1:p2, p3:p4])
+                cv2.imwrite(output_path, image[y:size_h, x_:size_x])
 
             return item
 

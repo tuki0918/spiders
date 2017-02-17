@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from sankaku.items import Image
+from ..items import Image
 from scrapy.spiders import CrawlSpider
 
 

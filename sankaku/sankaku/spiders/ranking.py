@@ -3,10 +3,10 @@ import scrapy
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from sankaku.spiders.page import PageSpider
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from urllib.parse import urlparse, parse_qs
+from .page import PageSpider
 
 
 class RankingSpider(CrawlSpider):

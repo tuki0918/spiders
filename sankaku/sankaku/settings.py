@@ -122,7 +122,7 @@ IMAGES_MIN_WIDTH = 110
 CASCADE_ANIME_FACE_PATH = '/usr/src/app/resources/cascades/lbpcascade_animeface.xml'
 
 # 顔画像保存ディレクトリ名
-IMAGES_STORE_ANIME_FACE_DIR = 'faces'
+IMAGES_STORE_ANIME_FACE_DIR = None
 
 # Database
 MONGODB_URI = 'mongodb://mongo:27017'

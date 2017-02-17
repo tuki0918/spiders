@@ -37,14 +37,19 @@ class ImageFacePointPipeline(object):
             settings = spider.settings
             cascade_file = settings.get('CASCADE_ANIME_FACE_PATH')
             image_base_path = settings.get('IMAGES_STORE')
-
-            item['faces'] = []
+            output_dir = settings.get('IMAGES_STORE_ANIME_FACE_DIR')
 
             # ファイルを見つからない場合は処理を継続しない
             if not os.path.isfile(cascade_file):
                 return item
 
+            # 出力先が指定されていない場合は処理しない
+            if output_dir is None:
+                return item
+
             cascade = cv2.CascadeClassifier(cascade_file)
+
+            item['faces'] = []
 
             # 特徴データを追加する
             # 画像は１つの前提
@@ -72,7 +77,13 @@ class ImageTrimmingFacePipeline(object):
         if isinstance(item, Image):
             settings = spider.settings
             image_base_path = settings.get('IMAGES_STORE')
-            output_dir = os.path.join(image_base_path, settings.get('IMAGES_STORE_ANIME_FACE_DIR'))
+            output_dir = settings.get('IMAGES_STORE_ANIME_FACE_DIR')
+
+            # 出力先が指定されていない場合は処理しない
+            if output_dir is None:
+                return item
+
+            output_dir = os.path.join(image_base_path, output_dir)
 
             # ディレクトリを再帰的に作成
             os.makedirs(output_dir, exist_ok=True)
@@ -91,20 +102,22 @@ class ImageTrimmingFacePipeline(object):
 
                 # 頭（上部）を大きく取る
                 size = h if (h > w) else w
-                size_plus = math.floor(size * 0.2)
-                size_h = y + size + size_plus
-                size_x = x + size + size_plus
-                # 横軸の調整
-                x_ = x - math.floor(size_plus / 2)
+                size_plus = math.floor(size * 0.15)
+                size_plus_half = math.floor(size_plus / 2)
+                size_h = y + size
+                size_x = x + size + size_plus_half
+                # 位置調整
+                y_ = y - size_plus
+                x_ = x - (size_plus - size_plus_half)
 
                 # デバッグ
                 # cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                # cv2.rectangle(image, (x_, y), (size_x, size_h), (0, 0, 255), 2)
+                # cv2.rectangle(image, (x_, y_), (size_x, size_h), (0, 0, 255), 2)
                 # cv2.imwrite(image_path, image)
 
                 # トリミング
                 # cv2.imwrite(output_path, image[y:y + h, x:x + w])
-                cv2.imwrite(output_path, image[y:size_h, x_:size_x])
+                cv2.imwrite(output_path, image[y_:size_h, x_:size_x])
 
             return item
 

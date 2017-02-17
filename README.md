@@ -11,6 +11,12 @@
 make build
 ```
 
+必要なコンテナの起動（DB:mongodb）
+
+```
+make boot
+```
+
 月刊ランキングページを解析する
 
 ```
@@ -20,14 +26,17 @@ make crawl RUN_ARGS="ranking -o ranking.jl"
 指定したTAGの画像を収集/解析する
 
 ```
+# 通常
 make crawl RUN_ARGS="tag -a TAG=矢吹健太朗"
-make crawl RUN_ARGS="tag -a TAG=矢吹健太朗 -s IMAGES_STORE_ANIME_FACE_DIR=矢吹健太朗 -o tag.jl"
+
+# 顔抽出処理を追加
+make crawl RUN_ARGS="tag -a TAG=矢吹健太朗 -s IMAGES_STORE_ANIME_FACE_DIR=矢吹健太朗"
 ```
 
 指定したページを解析する
 
 ```
-make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/5597890 -o page.jl"
+make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/5597890"
 ```
 
 ----

@@ -124,6 +124,8 @@ class ImageTrimmingFacePipeline(object):
 
 class MongoPipeline(object):
 
+    db = None
+    client = None
     collection_name = 'images'
 
     def __init__(self, mongo_uri, mongo_db):

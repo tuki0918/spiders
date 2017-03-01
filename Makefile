@@ -1,12 +1,14 @@
 WORK_DIR=/usr/src/app
 
-.PHONY: build bash mongo run crawl
+.PHONY: build bash mongo mongo-export run crawl
 build:
 	docker build -t py36 .
 boot:
 	docker run --rm -it \
         --name py36-mongo \
         -v $(PWD)/resources/storage:/data/db \
+        -v $(PWD):$(WORK_DIR) \
+        -w $(WORK_DIR) \
         -d mongo
 bash:
 	docker run --rm -it \
@@ -18,6 +20,9 @@ bash:
 mongo:
 	docker exec -it \
         py36-mongo mongo
+mongo-export:
+	docker exec -it \
+        py36-mongo misc/export.sh
 run:
 	docker run --rm -it \
         --link py36-mongo:mongo \

@@ -39,6 +39,12 @@ make crawl RUN_ARGS="tag -a TAG=矢吹健太朗 -s IMAGES_STORE_ANIME_FACE_DIR=�
 make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/5597890"
 ```
 
+収集データをファイルに書き出す
+
+```
+make mongo-export
+```
+
 ----
 
 ### 設定
@@ -56,6 +62,8 @@ sankaku/sankaku/settings.py
 + `resources/images/***` ... 顔認識した画像の切取（`IMAGES_STORE_ANIME_FACE_DIR`で指定）
 + `resources/images/full` ... ダウンロードした元画像
 + `resources/images/thumbs/***` ... サムネイル画像用
++ `resources/outputs` ... 収集データの出力先
++ `resources/storage` ... コンテナ内のデータ永続化用
 
 ----
 

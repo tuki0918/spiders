@@ -1,6 +1,6 @@
 WORK_DIR=/usr/src/app
 
-.PHONY: build bash mongo mongo-export run crawl
+.PHONY: build bash mongo mongo-export dataset run crawl
 build:
 	docker build -t py36 .
 boot:
@@ -23,6 +23,13 @@ mongo:
 mongo-export:
 	docker exec -it \
         py36-mongo misc/export.sh
+dataset:
+	docker run --rm -it \
+        --name py36-spiders \
+        --link py36-mongo:mongo \
+        -v $(PWD):$(WORK_DIR) \
+        -w $(WORK_DIR) \
+        py36 python misc/dataset.py $(RUN_ARGS)
 run:
 	docker run --rm -it \
         --link py36-mongo:mongo \

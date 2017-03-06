@@ -42,7 +42,11 @@ make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/55
 収集データをファイルに書き出す
 
 ```
+# csvにデータを出力
 make mongo-export
+
+# csvにデータを元にデータセットを作成
+make dataset RUN_ARGS="--csv output_***.csv"
 ```
 
 ----

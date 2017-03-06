@@ -9,5 +9,5 @@ OUTPUT_FILE=./resources/outputs/output`date +_%Y%m%d%H%M`.csv
 
 mongoexport -h ${DB_HOST} --db ${DB_NAME} \
     --collection ${DB_COLLECTION} \
-    --csv --out ${OUTPUT_FILE} \
+    --type csv --out ${OUTPUT_FILE} \
     --fields 'id,images,tags'

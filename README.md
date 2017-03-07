@@ -20,7 +20,7 @@ make boot
 月刊ランキングページを解析する
 
 ```
-make crawl RUN_ARGS="ranking -o ranking.jl"
+make crawl RUN_ARGS="ranking -o ranking.csv"
 ```
 
 指定したTAGの画像を収集/解析する
@@ -39,14 +39,17 @@ make crawl RUN_ARGS="tag -a TAG=矢吹健太朗 -s IMAGES_STORE_ANIME_FACE_DIR=�
 make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/5597890"
 ```
 
-収集データをファイルに書き出す
+データセットを作成する
 
 ```
-# csvにデータを出力
+# DBデータをCSVに書き出す
 make mongo-export
 
-# csvにデータを元にデータセットを作成
-make dataset RUN_ARGS="--csv output_***.csv"
+# or scrapy -o ***.csvのファイルを使用する
+
+# CSVにデータを元にデータセットを作成
+# scrapyの`-o ***.csv`で出力したファイルも可（フィールド名がデータ箇所にある場合は削除すること）
+make dataset RUN_ARGS="--csv ***.csv"
 ```
 
 ----

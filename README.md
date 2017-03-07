@@ -17,26 +17,10 @@ make build
 make boot
 ```
 
-月刊ランキングページを解析する
+データ収集
 
 ```
-make crawl RUN_ARGS="ranking -o ranking.csv"
-```
-
-指定したTAGの画像を収集/解析する
-
-```
-# 通常
-make crawl RUN_ARGS="tag -a TAG=矢吹健太朗"
-
-# 顔抽出処理を追加
-make crawl RUN_ARGS="tag -a TAG=矢吹健太朗 -s IMAGES_STORE_ANIME_FACE_DIR=矢吹健太朗"
-```
-
-指定したページを解析する
-
-```
-make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/5597890"
+make crawl RUN_ARGS="danbooru#all -o danbooru.csv"
 ```
 
 データセットを作成する
@@ -44,8 +28,6 @@ make crawl RUN_ARGS="page -a URL=https://chan.sankakucomplex.com/ja/post/show/55
 ```
 # DBデータをCSVに書き出す
 make mongo-export
-
-# or scrapy -o ***.csvのファイルを使用する
 
 # CSVにデータを元にデータセットを作成
 # scrapyの`-o ***.csv`で出力したファイルも可（フィールド名がデータ箇所にある場合は削除すること）
@@ -73,10 +55,7 @@ danbooru/danbooru/settings.py
 
 ----
 
-### 備考
-
-不適切な内容を含む場合があるため、18歳未満はご利用をお控えください。
-
 ### 対応サイト
 
++ http://danbooru.donmai.us/
 + https://chan.sankakucomplex.com/

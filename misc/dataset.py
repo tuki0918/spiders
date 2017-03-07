@@ -94,8 +94,11 @@ def process(csv_file):
         img_path = os.path.join(os.getcwd(), 'resources', 'images', image[0]['path'])
         tags = tags[FLAGS.category]
 
-        # image load
-        canvas = resize(img_path)
+        try:
+            # image load
+            canvas = resize(img_path)
+        except FileNotFoundError:
+            continue
 
         # image copy
         for tag in tags:

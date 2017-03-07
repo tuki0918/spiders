@@ -5,7 +5,7 @@ from scrapy.spiders import CrawlSpider
 
 
 class PageSpider(CrawlSpider):
-    name = "page"
+    name = "sankaku#page"
     allowed_domains = ["chan.sankakucomplex.com"]
     start_urls = []
 

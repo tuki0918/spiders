@@ -3,14 +3,14 @@ import scrapy
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
 from urllib.parse import urlparse, parse_qs
 from .page import PageSpider
 
 
 class RankingSpider(CrawlSpider):
-    name = "ranking"
+    name = "sankaku#ranking"
     allowed_domains = ["chan.sankakucomplex.com"]
     start_urls = []
 

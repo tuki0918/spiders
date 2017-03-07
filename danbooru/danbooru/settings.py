@@ -99,7 +99,7 @@ ITEM_PIPELINES = {
 
 
 # 再帰探索を有効にする
-RECURSIVE_SEARCH = True
+RECURSIVE_SEARCH = False
 
 # 画像保存先
 IMAGES_STORE = '/usr/src/app/resources/images'

@@ -19,7 +19,7 @@ class ImageValidationPipeline(object):
             if not len(image_urls) > 0:
                 raise DropItem('Missing image_urls: {}'.format(image_urls))
 
-                return item
+            return item
 
 
 class ImageFacePointPipeline(object):
@@ -59,7 +59,6 @@ class ImageFacePointPipeline(object):
                 faces = cascade.detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=5, minSize=(24, 24))
                 if isinstance(faces, np.ndarray):
                     item['faces'] = faces.tolist()
-
             return item
 
 
@@ -140,5 +139,6 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         if isinstance(item, Image):
+            # TODO: update and insert
             self.db[self.collection_name].insert(dict(item))
         return item

@@ -11,7 +11,11 @@
 
 BOT_NAME = 'danbooru'
 
-SPIDER_MODULES = ['danbooru.spiders', 'danbooru.sankaku-spiders']
+SPIDER_MODULES = [
+    'danbooru.spiders',
+    'danbooru.danbooru-spiders',
+    'danbooru.sankaku-spiders'
+]
 NEWSPIDER_MODULE = 'danbooru.spiders'
 
 

@@ -65,7 +65,6 @@ sankaku/sankaku/settings.py
 + `resources/images` ... ダウンロード画像管理用
 + `resources/images/***` ... 顔認識した画像の切取（`IMAGES_STORE_ANIME_FACE_DIR`で指定）
 + `resources/images/full` ... ダウンロードした元画像
-+ `resources/images/thumbs/***` ... サムネイル画像用
 + `resources/outputs` ... 収集データの出力先
 + `resources/storage` ... コンテナ内のデータ永続化用
 

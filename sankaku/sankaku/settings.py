@@ -109,15 +109,6 @@ FILES_EXPIRES = 120
 # 画像の有効期限
 IMAGES_EXPIRES = 30
 
-# 画像のサムネイルサイズ
-IMAGES_THUMBS = {
-    'medium': (200, 200),
-}
-
-# 画像のサムネイル対象サイズ（以上）
-IMAGES_MIN_HEIGHT = 110
-IMAGES_MIN_WIDTH = 110
-
 # アニメ顔認識用特徴データ
 CASCADE_ANIME_FACE_PATH = '/usr/src/app/resources/cascades/lbpcascade_animeface.xml'
 

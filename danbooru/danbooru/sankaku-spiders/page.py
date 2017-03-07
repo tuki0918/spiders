@@ -48,8 +48,6 @@ class PageSpider(CrawlSpider):
         image['id'] = post_id
         image['image_urls'] = []
         image['tags'] = tags
-        image['score'] = response.css('span#post-score-'+post_id+'::text').extract_first()
-        image['vote'] = response.css('span#post-vote-count-'+post_id+'::text').extract_first()
 
         # 拡大画像がある場合はリンク先、無い場合は画像リソース
         link = response.css('a#image-link::attr(href)').extract_first()

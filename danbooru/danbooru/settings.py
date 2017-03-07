@@ -97,9 +97,6 @@ ITEM_PIPELINES = {
 # 再帰探索を有効にする
 RECURSIVE_SEARCH = True
 
-# 対象とする画像の最低評価値
-ITEM_MIN_SCORE = 4.0
-
 # 画像保存先
 IMAGES_STORE = '/usr/src/app/resources/images'
 

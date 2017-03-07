@@ -14,6 +14,4 @@ class Image(scrapy.Item):
     image_urls = scrapy.Field()
     images = scrapy.Field()
     tags = scrapy.Field()
-    score = scrapy.Field()
-    vote = scrapy.Field()
     faces = scrapy.Field()

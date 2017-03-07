@@ -1,4 +1,5 @@
 import argparse
+import ast
 import json
 import math
 import os
@@ -29,6 +30,14 @@ def dataset_path(step='train'):
     else:
         path = os.path.join(work_dir, 'train')
     return path
+
+
+def json_decode(content):
+    try:
+        return json.loads(content)
+    except json.decoder.JSONDecodeError:
+        # single quote json data
+        return ast.literal_eval(content)
 
 
 def resize(path, img_size=64):
@@ -81,12 +90,12 @@ def process(csv_file):
         pbar.update(1)
 
         # image
-        image = json.loads(v['images'])
+        image = json_decode(v['images'])
         if len(image) < 1:
             continue
 
         # tag
-        tags = json.loads(v['tags'])
+        tags = json_decode(v['tags'])
         if FLAGS.category not in tags:
             continue
 

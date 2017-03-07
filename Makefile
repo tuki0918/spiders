@@ -40,5 +40,5 @@ crawl:
 	docker run --rm -it \
         --link py36-mongo:mongo \
         -v $(PWD):$(WORK_DIR) \
-        -w $(WORK_DIR)/sankaku \
+        -w $(WORK_DIR)/danbooru \
         py36 scrapy crawl $(RUN_ARGS)

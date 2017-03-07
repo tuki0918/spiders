@@ -59,7 +59,7 @@ make dataset RUN_ARGS="--csv ***.csv"
 下記設定ファイルを書き換える、または実行時に`-s VAL=value`で上書きする
 
 ```
-sankaku/sankaku/settings.py
+danbooru/danbooru/settings.py
 ```
 
 ディレクトリについて

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for sankaku project
+# Scrapy settings for danbooru project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,10 +9,10 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'sankaku'
+BOT_NAME = 'danbooru'
 
-SPIDER_MODULES = ['sankaku.spiders']
-NEWSPIDER_MODULE = 'sankaku.spiders'
+SPIDER_MODULES = ['danbooru.spiders']
+NEWSPIDER_MODULE = 'danbooru.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -47,13 +47,13 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'sankaku.middlewares.SankakuSpiderMiddleware': 543,
+#    'danbooru.middlewares.DanbooruSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'sankaku.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'danbooru.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,11 +65,11 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'sankaku.pipelines.ImageValidationPipeline': 100,
+    'danbooru.pipelines.ImageValidationPipeline': 100,
     'scrapy.pipelines.images.ImagesPipeline': 200,
-    'sankaku.pipelines.ImageFacePointPipeline': 300,
-    'sankaku.pipelines.ImageTrimmingFacePipeline': 400,
-    'sankaku.pipelines.MongoPipeline': 800,
+    'danbooru.pipelines.ImageFacePointPipeline': 300,
+    'danbooru.pipelines.ImageTrimmingFacePipeline': 400,
+    'danbooru.pipelines.MongoPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

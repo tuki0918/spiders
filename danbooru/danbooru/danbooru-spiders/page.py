@@ -4,9 +4,23 @@ from ..items import Image
 from scrapy.spiders import CrawlSpider
 
 
+def category_name(num):
+    if num == '0':
+        return 'general'
+    elif num == '1':
+        return 'artist'
+    # elif num == '2':
+    #     return ''
+    elif num == '3':
+        return 'copyright'
+    elif num == '4':
+        return 'character'
+    return 'undefined'
+
+
 class PageSpider(CrawlSpider):
-    name = "page"
-    allowed_domains = ["chan.sankakucomplex.com"]
+    name = "danbooru#page"
+    allowed_domains = ["danbooru.donmai.us"]
     start_urls = []
 
     def __init__(self, *a, **kw):
@@ -31,9 +45,10 @@ class PageSpider(CrawlSpider):
 
         # タグデータ
         tags = {}
-        for tag in response.css('li[class^="tag-type-"]'):
-            name = tag.css('::attr(class)').re_first('tag-type-(.+)')
-            keyword = tag.css('a::text').extract_first()
+        for tag in response.css('#tag-list li[class^="category-"]'):
+            num = tag.css('::attr(class)').re_first('category-(\d)')
+            name = category_name(num)
+            keyword = tag.css('a.search-tag::text').extract_first()
             if name in tags.keys():
                 tags[name].append(keyword)
             else:
@@ -41,21 +56,15 @@ class PageSpider(CrawlSpider):
                 tags[name].append(keyword)
 
         # 投稿ID
-        post_id = response.css('p#hidden_post_id::text').extract_first()
+        post_id = response.css('meta[name="post-id"]::attr(content)').extract_first()
 
         # 画像情報
         image = Image()
         image['id'] = post_id
         image['image_urls'] = []
         image['tags'] = tags
-        image['score'] = response.css('span#post-score-'+post_id+'::text').extract_first()
-        image['vote'] = response.css('span#post-vote-count-'+post_id+'::text').extract_first()
 
-        # 拡大画像がある場合はリンク先、無い場合は画像リソース
-        link = response.css('a#image-link::attr(href)').extract_first()
-
-        if link is None:
-            link = response.css('a#image-link > img::attr(src)').extract_first()
+        link = response.css('img#image::attr(src)').extract_first()
 
         if link is not None:
             image['image_urls'].append(response.urljoin(link))

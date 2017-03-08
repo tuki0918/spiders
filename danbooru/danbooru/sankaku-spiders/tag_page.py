@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
 from .page import PageSpider
 
 
 class TagPageSpider(CrawlSpider):
-    name = "tag"
+    name = "sankaku#tag"
     allowed_domains = ["chan.sankakucomplex.com"]
     start_urls = []
 

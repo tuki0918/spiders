@@ -56,7 +56,11 @@ class ImageFacePointPipeline(object):
                 image_gray = cv2.equalizeHist(image_gray)
 
                 # numpy.ndarray
-                faces = cascade.detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=5, minSize=(24, 24))
+                faces = cascade.detectMultiScale(
+                    image_gray,
+                    scaleFactor=1.1,
+                    minNeighbors=5,
+                    minSize=(24, 24))
                 if isinstance(faces, np.ndarray):
                     item['faces'] = faces.tolist()
             return item

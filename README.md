@@ -8,30 +8,30 @@
 `requirements.txt`に記載されたパッケージをインストールしたDockerイメージを作成する
 
 ```
-make build
+./run.sh build
 ```
 
 必要なコンテナの起動（DB:mongodb）
 
 ```
-make boot
+./run.sh boot
 ```
 
 データ収集
 
 ```
-make crawl RUN_ARGS="danbooru#all -o danbooru.csv"
+./run.sh crawl "danbooru#all -o danbooru.csv"
 ```
 
 データセットを作成する
 
 ```
 # DBデータをCSVに書き出す
-make mongo-export
+./run.sh mongo-export
 
 # CSVにデータを元にデータセットを作成
 # scrapyの`-o ***.csv`で出力したファイルも可（フィールド名がデータ箇所にある場合は削除すること）
-make dataset RUN_ARGS="--csv ***.csv"
+./run.sh dataset "--csv ***.csv"
 ```
 
 ----

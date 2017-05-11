@@ -34,6 +34,13 @@
 ./run.sh dataset "--csv ***.csv"
 ```
 
+データセットを解凍する
+
+```
+# 解凍後に分類クラス毎のファイル数が表示されるので要確認（偏りが激しいため）
+./misc/extract.sh dataset_***.tar.gz | tee extract.txt
+```
+
 ----
 
 ### 設定
